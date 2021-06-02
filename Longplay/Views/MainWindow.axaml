@@ -1,0 +1,38 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Longplay.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="854" d:DesignHeight="480"
+        Width="854" Height="480"
+        MinWidth="427" MinHeight="240"
+        x:Class="Longplay.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Longplay"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Panel>
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="Black"
+                    TintOpacity="1"
+                    MaterialOpacity="0.65" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+        
+        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="40">
+            <Button Content="⏮️" Command="{Binding PreviousTrackCommand}" Margin="4" />
+            <Button Content="⏯️️" Command="{Binding PlayPauseTrackCommand}" Margin="4" />
+            <Button Content="⏭️️" Command="{Binding NextTrackCommand}" Margin="4" />
+        </WrapPanel>
+    </Panel>
+
+</Window>
