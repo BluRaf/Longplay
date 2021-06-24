@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="854" d:DesignHeight="480"
-        Width="854" Height="480"
+        Width="427" Height="240"
         MinWidth="427" MinHeight="240"
         x:Class="Longplay.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -28,10 +28,24 @@
             </ExperimentalAcrylicBorder.Material>
         </ExperimentalAcrylicBorder>
         
-        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="40">
-            <Button Content="⏮️" Command="{Binding PreviousTrackCommand}" Margin="4" />
+        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <Label Content="{Binding Player.Artist}"></Label>
+                <Label Content="{Binding Player.Title}"></Label>
+                <Label Content="{Binding Player.Album}"></Label>
+            </StackPanel>
+        </WrapPanel>
+        
+        <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20">
+            <Button Content="📂️" Command="{Binding OpenTrackCommand}" Margin="4" />
+            <!--<Button Content="⏮️" Command="{Binding PreviousTrackCommand}" Margin="4" />-->
+            <Button Content="⏹️️️" Command="{Binding StopTrackCommand}" Margin="4" />
             <Button Content="⏯️️" Command="{Binding PlayPauseTrackCommand}" Margin="4" />
-            <Button Content="⏭️️" Command="{Binding NextTrackCommand}" Margin="4" />
+            <!--<Button Content="⏺️️️" Command="{Binding TranscodeTrackCommand}" Margin="4" />
+            <Button Content="⏭️️" Command="{Binding NextTrackCommand}" Margin="4" />-->
+        </WrapPanel>
+        <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
+            <Slider Value="{Binding Volume, Mode=TwoWay}" Minimum="0.0" Maximum="1.0" Width="100" Margin="4"></Slider>
         </WrapPanel>
     </Panel>
 

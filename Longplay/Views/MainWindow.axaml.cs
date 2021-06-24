@@ -1,6 +1,8 @@
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Longplay.ViewModels;
 
 namespace Longplay.Views
 {
@@ -9,6 +11,7 @@ namespace Longplay.Views
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel();
 #if DEBUG
             this.AttachDevTools();
 #endif
