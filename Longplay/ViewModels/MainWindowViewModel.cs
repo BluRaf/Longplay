@@ -77,8 +77,8 @@ namespace Longplay.ViewModels
             }
             else
             {
-                if (Position == 0)
-                    Position = Player.Duration.TotalSeconds;
+                // if (Position == 0)
+                //      Position = Player.Duration.TotalSeconds;
 
                 if (!Player.Play())
                     return;
@@ -94,13 +94,12 @@ namespace Longplay.ViewModels
         // }
 
         #region Properties
-
         public bool Ready { get; set; }
 
-        public double Position
+        public TimeSpan Position
         {
-            get => Player.Position.TotalSeconds;
-            set => Player.Position = TimeSpan.FromSeconds(value);
+            get { return Player.Position; }
+            set { Player.Position = value; }
         }
 
         public double Volume

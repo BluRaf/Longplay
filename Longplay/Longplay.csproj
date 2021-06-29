@@ -14,5 +14,6 @@
         <PackageReference Include="Avalonia.Diagnostics" Version="0.10.3" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.3" />
         <PackageReference Include="ManagedBass" Version="3.0.0" />
+        <PackageReference Include="Projektanker.Icons.Avalonia.FontAwesome" Version="3.1.0" />
     </ItemGroup>
 </Project>
