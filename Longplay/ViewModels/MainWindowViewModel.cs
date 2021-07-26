@@ -13,7 +13,7 @@ namespace Longplay.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         #region Fields
-        private MusicEngine Player { get; } = new MusicEngine();
+        public MusicEngine Player { get; } = new MusicEngine();
         #endregion
         
         
@@ -49,6 +49,7 @@ namespace Longplay.ViewModels
             if (result != null)
             {
                 await Player.LoadAsync(result[0]);
+                Duration = Player.Duration;
                 Ready = true;
             }
         }
@@ -93,13 +94,26 @@ namespace Longplay.ViewModels
         //     Console.WriteLine("Next");
         // }
 
+
         #region Properties
         public bool Ready { get; set; }
 
+        private TimeSpan _position = TimeSpan.Zero;
         public TimeSpan Position
         {
-            get { return Player.Position; }
-            set { Player.Position = value; }
+            get => _position;
+            set
+            {
+                System.Console.WriteLine(value);
+                this.RaiseAndSetIfChanged(ref _position, value);
+            }
+        }
+
+        private TimeSpan _duration = TimeSpan.Zero;
+        public TimeSpan Duration
+        {
+            get => _duration;
+            set => this.RaiseAndSetIfChanged(ref _duration, value);
         }
 
         public double Volume
