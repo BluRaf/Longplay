@@ -34,10 +34,9 @@ namespace Longplay.Views
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e) {
-            var now = DateTime.Now;
             Dispatcher.UIThread.InvokeAsync((Action) delegate()
             {
-                if (ViewModel != null) ViewModel.Position = ViewModel.Player.Position;
+                if (ViewModel != null) ViewModel.PositionRefresh = ViewModel.Player.Position;
             });
         }
 

@@ -56,7 +56,7 @@
 
         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                <Slider Value="{Binding Player.Position, Mode=TwoWay,
+                <Slider Value="{Binding Position, Mode=TwoWay,
                 Converter={StaticResource TimeSpanToDoubleConverter}}"
                 Minimum="0" Maximum="{Binding Duration.TotalSeconds}"
                 Width="256" Margin="4"></Slider>

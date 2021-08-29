@@ -6,7 +6,9 @@ using Avalonia;
 using ReactiveUI;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Markup.Parsers.Nodes;
 using ManagedBass;
+using ManagedBass.DirectX8;
 
 namespace Longplay.ViewModels
 {
@@ -99,13 +101,23 @@ namespace Longplay.ViewModels
         public bool Ready { get; set; }
 
         private TimeSpan _position = TimeSpan.Zero;
+        public TimeSpan PositionRefresh
+        {
+            get => _position;
+            set
+            {
+                _position = value;
+                this.RaisePropertyChanged("Position");
+            }
+        }
+
         public TimeSpan Position
         {
             get => _position;
             set
             {
-                System.Console.WriteLine(value);
-                this.RaiseAndSetIfChanged(ref _position, value);
+                Player.Position = value;
+                this.RaisePropertyChanged("PositionRefresh");
             }
         }
 
