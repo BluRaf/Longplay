@@ -65,7 +65,9 @@
         
         <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20">
             <Button i:Attached.Icon="fas fa-folder-open"
-                    Command="{Binding OpenTrackCommand}" Margin="4" />
+                    Command="{Binding OpenFileCommand}" Margin="4" />
+            <Button i:Attached.Icon="fas fa-globe"
+                    Command="{Binding OpenUrlCommand}" Margin="4" />
             <!--<Button Content="⏮️" Command="{Binding PreviousTrackCommand}" Margin="4" />-->
             <Button i:Attached.Icon="fas fa-stop"
                     Command="{Binding StopTrackCommand}" Margin="4" />

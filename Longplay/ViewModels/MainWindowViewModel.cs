@@ -2,11 +2,13 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using Avalonia;
 using ReactiveUI;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Parsers.Nodes;
+using Longplay.Views;
 using ManagedBass;
 using ManagedBass.DirectX8;
 
@@ -21,7 +23,9 @@ namespace Longplay.ViewModels
         
         public MainWindowViewModel()
         {
-            OpenTrackCommand = ReactiveCommand.Create<object>(OpenTrack);
+            OpenFileCommand = ReactiveCommand.Create<object>(OpenFile);
+            ShowOpenUrlDialog = new Interaction<OpenUrlDialogViewModel, string?>();
+            OpenUrlCommand = ReactiveCommand.Create<object>(OpenUrl);
             //TranscodeTrackCommand = ReactiveCommand.Create<object>(TranscodeTrack);
             StopTrackCommand = ReactiveCommand.Create<object>(StopTrack);
             PlayPauseTrackCommand = ReactiveCommand.Create<object>(PlayPauseTrack);
@@ -30,15 +34,17 @@ namespace Longplay.ViewModels
         }
 
         #region Commands
-        public ReactiveCommand<object, System.Reactive.Unit> OpenTrackCommand { get; }
+        public ReactiveCommand<object, System.Reactive.Unit> OpenFileCommand { get; }
+        public ReactiveCommand<object, System.Reactive.Unit> OpenUrlCommand { get; }
         //public ReactiveCommand<object, System.Reactive.Unit> TranscodeTrackCommand { get; }
         public ReactiveCommand<object, System.Reactive.Unit> StopTrackCommand { get; }
         public ReactiveCommand<object, System.Reactive.Unit> PlayPauseTrackCommand { get; }
         // public ReactiveCommand<object, System.Reactive.Unit> PreviousTrackCommand { get; }
         // public ReactiveCommand<object, System.Reactive.Unit> NextTrackCommand { get; }
+        public Interaction<OpenUrlDialogViewModel, string?> ShowOpenUrlDialog { get; }
         #endregion
         
-        private async void OpenTrack(object o)
+        private async void OpenFile(object o)
         {
             string[]? result = null;
             OpenFileDialog dialog = new OpenFileDialog();
@@ -51,6 +57,21 @@ namespace Longplay.ViewModels
             if (result != null)
             {
                 await Player.LoadAsync(result[0]);
+                Duration = Player.Duration;
+                Ready = true;
+            }
+        }
+        
+        private async void OpenUrl(object o)
+        {
+            string? result = null;
+            var dialog = new OpenUrlDialogViewModel();
+
+            result = await ShowOpenUrlDialog.Handle(dialog);
+
+            if (result != null)
+            {
+                await Player.LoadAsync(result);
                 Duration = Player.Duration;
                 Ready = true;
             }
@@ -107,7 +128,7 @@ namespace Longplay.ViewModels
             set
             {
                 _position = value;
-                this.RaisePropertyChanged("Position");
+                this.RaisePropertyChanged(nameof(Position));
             }
         }
 
@@ -117,7 +138,6 @@ namespace Longplay.ViewModels
             set
             {
                 Player.Position = value;
-                this.RaisePropertyChanged("PositionRefresh");
             }
         }
 
